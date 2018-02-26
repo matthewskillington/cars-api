@@ -81,29 +81,19 @@ exports.update = function(req, res) {
 
 exports.delete = function(req, res) {
     // Delete a car with the specified carId in the request
-    Car.findById(req.params.noteId, function(err, car) {
+    Car.findByIdAndRemove(req.params.carId, function(err, car) {
         if(err) {
             console.log(err);
             if(err.kind === 'ObjectId') {
-                return res.status(404).send({message: "car not found with id " + req.params.noteId});                
+                return res.status(404).send({message: "Car not found with id " + req.params.carId});                
             }
-            return res.status(500).send({message: "Error finding car with id " + req.params.noteId});
+            return res.status(500).send({message: "Could not delete car with id " + req.params.carId});
         }
 
         if(!car) {
-            return res.status(404).send({message: "Car not found with id " + req.params.noteId});            
+            return res.status(404).send({message: "Car not found with id " + req.params.carId});
         }
 
-        car.title = req.body.title;
-        car.content = req.body.content;
-
-        car.save(function(err, data){
-            if(err) {
-                res.status(500).send({message: "Could not update car with id " + req.params.noteId});
-            } else {
-                res.send(data);
-            }
-        });
+        res.send({message: "Car deleted successfully!"})
     });
-
 };

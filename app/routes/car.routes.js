@@ -11,8 +11,8 @@ module.exports = function(app) {
     app.get('/cars/:carId', cars.findOne);
 
     //update a car with carId
-    app.put('cars/:carId', cars.update);
+    app.put('/cars/:carId', cars.update);
 
     //delete a car with carId
-    app.delete('cars/:carId', cars.delete);
+    app.delete('/cars/:carId', cars.delete);
 }
