@@ -2,11 +2,21 @@ var Car = require('../models/car.model.js');
 
 exports.create = function (req, res) {
     //Create a new car
-    if(!req.body.content) {
+
+    //Validation
+    if(!req.body.id) {
         return res.status(400).send({message: "Car can not be empty"});
     }
 
-    var car = new Car({title: req.body.title || "Untitled Car", content: req.body.content});
+    //create the object
+    var car = new Car({
+        id: req.body.id || 0, 
+        manufacturer: req.body.manufacturer, 
+        model: req.body.model, 
+        power: req.body.power, 
+        price: req.body.price, 
+        imageUrl: req.body.imageUrl
+    });
 
     car.save(function(err, data){
         if(err) {
@@ -65,8 +75,12 @@ exports.update = function(req, res) {
             return res.status(404).send({message: "Car not found with id " + req.params.carId});            
         }
 
-        car.title = req.body.title;
-        car.content = req.body.content;
+        car.id = req.body.id;
+        car.manufacturer = req.body.manufacturer;
+        car.model = req.body.model;
+        car.power = req.body.power;
+        car.price = req.body.price;
+        car.imageUrl = req.body.imageUrl;
 
         car.save(function(err, data){
             if(err) {
