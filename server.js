@@ -1,4 +1,5 @@
 var express = require('express');
+var mongodb= require('mongodb');
 var bodyParser = require('body-parser');
 
 // create express app
@@ -19,6 +20,9 @@ app.use(function(req, res, next) {
 
 //Config for the databse
 var dbConfig = require('./config/database.config.js');
+
+
+// Mongoose local config
 var mongoose = require('mongoose');
 
 mongoose.Promise = global.Promise;
@@ -33,6 +37,7 @@ mongoose.connection.on('error', function(){
 mongoose.connection.once('open', function(){
     console.log("Successfully connected to the database");
 });
+
 
 // define a simple route
 app.get('/', function(req, res){

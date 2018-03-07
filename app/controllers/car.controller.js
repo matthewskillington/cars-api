@@ -34,7 +34,7 @@ exports.findAll = function (req, res) {
     Car.find(function(err, cars){
         if(err) {
             console.log(err);
-            res.status(500).send({message: "Some error occured while retrieving carss."});
+            res.status(500).send({message: "Some error occured while retrieving cars."});
         }
         else {
             res.send(cars);
